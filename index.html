@@ -2,8 +2,11 @@
 <html>
 <head>
   <title>AngularJs CRUD operations</title>
+  <script src="lib/jquery.min.js"></script>
   <script src="lib/angular.min.js"></script>
+  <script src="lib/popper.min.js"></script>
   <script src="lib/bootstrap.min.js"></script>
+  
   <script src="app/controller/employee.controller.js"></script>
   <script src="app/service/employee.service.js"></script>
   <link rel="stylesheet" href="styles/bootstrap.min.css"/>
@@ -11,11 +14,48 @@
 </head>
 
 <body ng-app="empApp" ng-controller="empCtrl" class="container">
-  <div>
-    <h1>Employees</h1></div>
-  <table class="table table-striped">
+  <div class="row">
+    <h1>Employees</h1>
+  </div>
+  <form >
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="fname">First Name</label>
+      <input type="text" class="form-control" id="fname" required="true" placeholder="First Name" ng-model="empl.fname">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="lname">Last Name</label>
+      <input type="text" class="form-control" id="lname" placeholder="Last Name" ng-model="empl.lname">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="email">Email</label>
+      <input type="email" class="form-control " id="email" placeholder="Email" ng-model="empl.email">
+    </div>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="age">Age</label>
+      <input type="number" class="form-control" min="0" id="age" placeholder="Age" ng-model="empl.age">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="dob">DOB</label>
+      <input type="text"  class="form-control" id="dob" placeholder="dob" ng-model="empl.dob">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="gender">Gender : </label>
+      <div>
+      <input type="radio" id="gender" value="M" ng-model="empl.gender">Male
+      <input type="radio" id="gender" value="F" ng-model="empl.gender">Female
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" data-ng-click="addEmployee(empl)">Save</button>
+  <button type="reset" class="btn btn-cancel">Cancel</button>
+</form>
+  <table ng-if="employee.length" class="table table-striped">
   	<thead>
-        <th>#</th> 	
+      <th>#</th> 	
   		<th>First Name</th>
   		<th>Last Name</th>
   		<th>Email</th>
@@ -24,9 +64,10 @@
   		<th>DOB</th>
       <th></th>
       <th></th>
+
   	</thead>
   	<tbody>
-  	<tr ng-repeat="emp in employee">
+  	<tr ng-repeat="emp in employee track by $index">
   		<td>{{$index+1}}</td>
       <td>{{emp.fname}}</td>
   		<td>{{emp.lname}}</td>
@@ -45,7 +86,7 @@
   		
   	</tbody>
   </table>
-
+ <h3><div class="row" ng-hide="employee.length">No records found</div></h3>
 </body>
 
 </html>

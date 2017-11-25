@@ -31,4 +31,23 @@ var app = angular.module('empApp', ['EmployeeService']);
         $scope.employee.push(newRow);
         //TODO: Logic for add new rows.
       }
+
+      $scope.addEmployee = function(data) {
+        alert(JSON.stringify(data));
+        $scope.employee.push(data);
+      }
+    }]);
+
+
+    app.controller('empAddCtrl', ['$scope','EmployeeService', function($scope,EmployeeService) {
+
+      //Employee collection
+      $scope.employee = [];
+
+      
+
+      $scope.addEmployee = function(data) {
+        alert(JSON.stringify(data));
+        $scope.employee.push(data);
+      }
     }]);
