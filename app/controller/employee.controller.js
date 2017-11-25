@@ -2,8 +2,11 @@ var app = angular.module('empApp', ['EmployeeService']);
 
     app.controller('empCtrl', ['$scope','EmployeeService', function($scope,EmployeeService) {
 
+      $scope.save=true;
+      
       //Employee collection
-      $scope.employee = [{
+      $scope.employees = [{
+        id:1,
         fname:"Anil",
         lname:"Singh",
         email:"ac@xyz.com",
@@ -11,43 +14,80 @@ var app = angular.module('empApp', ['EmployeeService']);
         gender:"M",
         dob:"12/06/99"
 
-        }];
+        },
+        {
+        id:2,
+        fname:"Shruthi",
+        lname:"T",
+        email:"ac@xyz.com",
+        age:23,
+        gender:"F",
+        dob:"12/06/99"
 
+        }
+        ];
+
+      $scope.count=$scope.employees.length+1;
       //Delete Row
+      
       $scope.delete = function(index) {
-        EmployeeService.delete(index,$scope.employee);
-        //TODO: Login for server call and remove data;
+      
+        if(confirm("Are you sure you want to delete?")==true)
+        EmployeeService.delete(index,$scope.employees);
+      
       }
+        
+      
 
+       $scope.cancel = function() {
+        
+        $scope.save=true;
+        $scope.empl={};
+      }
       //Update Row
-      $scope.update = function(index, data) {
-        alert(JSON.stringify(data));
-        //TODO: logic to render data on popups and update and set;
+      $scope.edit = function(index, data) {
+        $scope.empl={};
+        $scope.save=false;
+        $scope.empl.id=data.id;
+        $scope.empl.fname=data.fname;
+        $scope.empl.lname=data.lname;
+        $scope.empl.email=data.email;
+        $scope.empl.age=data.age;
+        $scope.empl.gender=data.gender;
+        $scope.empl.dob=data.dob;
       }
 
-      //Copy new Row
-      $scope.copy = function(index, data) {
-        var newRow = angular.copy(data);
-        $scope.employee.push(newRow);
-        //TODO: Logic for add new rows.
-      }
 
-      $scope.addEmployee = function(data) {
-        alert(JSON.stringify(data));
-        $scope.employee.push(data);
-      }
-    }]);
-
-
-    app.controller('empAddCtrl', ['$scope','EmployeeService', function($scope,EmployeeService) {
-
-      //Employee collection
-      $scope.employee = [];
-
+      $scope.updateEmployee = function(data) {
+       //alert(JSON.stringify(data));
+        angular.forEach($scope.employees,function(key,value){
+          if(key.id==data.id)
+          {
+        key.fname=data.fname;
+        key.lname=data.lname;
+        key.email=data.email;
+        key.age=data.age;
+        key.gender=data.gender;
+        key.dob=data.dob;
+          }
+        });
+      } 
       
 
       $scope.addEmployee = function(data) {
-        alert(JSON.stringify(data));
-        $scope.employee.push(data);
+
+        $scope.employees.push({
+        id: $scope.count,
+        fname: $scope.empl.fname,
+        lname:$scope.empl.lname,
+        email:$scope.empl.email,
+        age:$scope.empl.age,
+        gender:$scope.empl.gender,
+        dob:$scope.empl.dob
+        });
+        $scope.count++;
       }
     }]);
+
+
+    

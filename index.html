@@ -50,43 +50,44 @@
       </div>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary" data-ng-click="addEmployee(empl)">Save</button>
-  <button type="reset" class="btn btn-cancel">Cancel</button>
+  <button type="submit" class="btn btn-primary" data-ng-click="addEmployee()" ng-show="save">Save</button>
+  <button type="submit" class="btn btn-primary" data-ng-click="updateEmployee(empl)" ng-hide="save">Update</button>
+  <button type="submit" class="btn btn-cancel" data-ng-click="cancel()">Cancel</button>
 </form>
-  <table ng-if="employee.length" class="table table-striped">
-  	<thead>
-      <th>#</th> 	
-  		<th>First Name</th>
-  		<th>Last Name</th>
-  		<th>Email</th>
-  		<th>Age</th>
-  		<th>Gender</th>
-  		<th>DOB</th>
+  <table ng-if="employees.length" class="table table-striped">
+    <thead>
+      <th>#</th>  
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>DOB</th>
       <th></th>
       <th></th>
 
-  	</thead>
-  	<tbody>
-  	<tr ng-repeat="emp in employee track by $index">
-  		<td>{{$index+1}}</td>
+    </thead>
+    <tbody>
+    <tr ng-repeat="emp in employees track by $index">
+      <td>{{$index+1}}</td>
       <td>{{emp.fname}}</td>
-  		<td>{{emp.lname}}</td>
-  		<td>{{emp.email}}</td>
-  		<td>{{emp.age}}</td>
-  		<td>{{emp.gender}}</td>
-  		<td>{{emp.dob}}</td>
-  		<td>
-          <button type="button" value="Edit" class="btn btn-default " data-ng-click="update($index, emp)">Edit</button>
+      <td>{{emp.lname}}</td>
+      <td>{{emp.email}}</td>
+      <td>{{emp.age}}</td>
+      <td>{{emp.gender}}</td>
+      <td>{{emp.dob}}</td>
+      <td>
+          <button type="button" value="Edit" class="btn btn-default " data-ng-click="edit($index, emp)">Edit</button>
         </td>
         <td>
-          <button type="button" value="Delete" class="btn btn-default " data-ng-click="delete($index)">Delete</button> 
+          <button type="button" value="Delete" class="btn btn-default " ng-confirm="Are?" data-ng-click="delete($index)">Delete</button> 
         </td>
         
-  	</tr>
-  		
-  	</tbody>
+    </tr>
+      
+    </tbody>
   </table>
- <h3><div class="row" ng-hide="employee.length">No records found</div></h3>
+ <h3><div class="row" ng-hide="employees.length">No records found</div></h3>
 </body>
 
 </html>
