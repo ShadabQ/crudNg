@@ -87,7 +87,55 @@ var app = angular.module('empApp', ['EmployeeService']);
         });
         $scope.count++;
       }
+      
+      $scope.Display = function(letters){
+        switch(letters){
+
+        case 'A-E':
+        $scope.employees=$scope.employees.filter(function(word){
+          return /^(A|B|C|D|E)/.test(word.lname.toUpperCase());
+        })
+        break;
+        case 'F-J':
+        $scope.employees=$scope.employees.filter(function(word){
+          return /^(F|G|H|I|J)/.test(word.lname.toUpperCase());
+        })
+        break;
+        case 'K-O':
+        $scope.employees=$scope.employees.filter(function(word){
+          return /^(K|L|M|N|O)/.test(word.lname.toUpperCase());
+        })
+        break;
+        case 'P-T':
+        $scope.employees=$scope.employees.filter(function(word){
+          return /^(P|Q|R|S|T)/.test(word.lname.toUpperCase());
+        })
+        break;
+        case 'U-Z':
+        $scope.employees=$scope.employees.filter(function(word){
+          return /^(U|V|W|X|Y|Z)/.test(word.lname.toUpperCase());
+        })
+        break;
+        };
+        
+       }
+      
+      
     }]);
 
+app.directive('indices',function(){
+
+var directive={};
+directive.restrict='E';
+directive.controller='empCtrl';
+directive.template=`<span>
+  &nbsp;|&nbsp;<a href="#" data-ng-click='Display("A-E")'>A-E</a>
+  &nbsp;|&nbsp;<a href="#" data-ng-click='Display("F-J")'>F-J</a>
+  &nbsp;|&nbsp;<a href="#" data-ng-click='Display("K-O")'>K-O</a>
+  &nbsp;|&nbsp;<a href="#" data-ng-click='Display("P-T")'>P-T</a>
+  &nbsp;|&nbsp;<a href="#" data-ng-click='Display("U-Z")'>U-Z</a>
+</span>`;
+return directive;
+});
 
     
